@@ -2,37 +2,47 @@
 import React, { Suspense, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import CanvasLoader from "./Loader";
 
 const Earth = () => {
-    const [model, setModel] = useState(null);
-  
-    useEffect(() => {
-      new GLTFLoader().load('/planet/scene.gltf', (gltf) => {
-        gltf.scene.traverse((child) => {
-          if (child.isMesh) {
-            child.geometry.computeBoundingSphere();
-          }
-        });
-        setModel(gltf.scene);
-      });
-    }, []);
-  
-    return model ? <primitive object={model} /> : null;
-  };
+  const earth = useGLTF("/planet/scene.gltf");
 
+  // Ensure the model is valid and has no NaN values
+  useEffect(() => {
+    if (earth && earth.scene) {
+      earth.scene.traverse((object) => {
+        if (object.isMesh && object.geometry) {
+          const positions = object.geometry.attributes.position;
+          
+          if (positions) {
+            // Check for NaN values in position attribute
+            for (let i = 0; i < positions.array.length; i++) {
+              if (isNaN(positions.array[i])) {
+                positions.array[i] = 0;
+              }
+            }
+            positions.needsUpdate = true;
+          }
+        }
+      });
+    }
+  }, [earth]);
+
+  return (
+    <primitive object={earth.scene} scale={2.5} position-y={0} rotation-y={0} />
+  );
+};
 
 const EarthCanvas = () => {
-    const [mounted, setMounted] = useState(false);
-  
-    useEffect(() => {
-      setMounted(true);
-      return () => setMounted(false);
-    }, []);
-  
-    if (!mounted) return null;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <Canvas
@@ -46,6 +56,10 @@ const EarthCanvas = () => {
         far: 200,
         position: [-4, 3, 6],
       }}
+      onCreated={({ gl }) => {
+        // Add error handling for WebGL context
+        gl.getContext().getExtension('WEBGL_debug_renderer_info');
+      }}
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
@@ -56,9 +70,11 @@ const EarthCanvas = () => {
         />
         <Earth />
 
+        {/* Disable preload temporarily to see if it's causing issues */}
         <Preload all />
       </Suspense>
     </Canvas>
   );
 };
+
 export default EarthCanvas;

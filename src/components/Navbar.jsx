@@ -1,17 +1,16 @@
-'use client';
 import React, { useState, useEffect } from "react";
 import { Menu, X, CloudRain } from "lucide-react";
 
 const Navbar = ({ onToggleRain, showRain }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("Home");
+  const [activeSection, setActiveSection] = useState("Hero");
 
   const navItems = [
-    { href: "#Home", label: "Home" },
+    { href: "#hero", label: "Home" },
     { href: "#About", label: "About" },
     { href: "#Portofolio", label: "Portofolio" },
-    { href: "#Contact", label: "Contact" },
+    { href: "#contact", label: "Contact" },
   ];
 
   useEffect(() => {
@@ -82,8 +81,8 @@ const Navbar = ({ onToggleRain, showRain }) => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <a
-              href="#Home"
-              onClick={(e) => scrollToSection(e, "#Home")}
+              href="#hero"
+              onClick={(e) => scrollToSection(e, "#Hero")}
               className="text-xl font-bold bg-gradient-to-r from-[#a855f7] to-[#6366f1] bg-clip-text text-transparent"
             >
               JAIdeepN
@@ -117,17 +116,6 @@ const Navbar = ({ onToggleRain, showRain }) => {
                 />
               </a>
             ))}
-            {/* Rain Toggle Button */}
-            <button
-              onClick={onToggleRain}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
-            >
-              <CloudRain
-                className={`w-5 h-5 transition-colors ${
-                  showRain ? "text-purple-400" : "text-gray-400"
-                }`}
-              />
-            </button>
           </div>
 
           {/* Mobile Menu Button */}

@@ -72,13 +72,20 @@ const Footer = () => {
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: #000;
+          background-color:rgb(3, 3, 27);
           border-radius: 30px;
           padding: 10px;
           height: 60px;
           width: 320px;
           margin: 0 auto;
-        }
+          --glow-color: rgba(175, 175, 197, 0.3);
+  --glow-hover: rgba(100, 100, 255, 0.6);
+  box-shadow: 0 0 30px var(--glow-color);
+}
+
+.example-1:hover {
+  box-shadow: 0 0 30px var(--glow-hover);
+}
 
         .icon-content {
           margin: 0 10px;
