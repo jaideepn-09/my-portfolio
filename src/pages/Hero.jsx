@@ -72,7 +72,7 @@ const TYPING_SPEED = 100;
 const ERASING_SPEED = 50;
 const PAUSE_DURATION = 2000;
 const WORDS = ["Computer Science(Data Science) Student", "Tech Enthusiast"];
-const TECH_STACK = ["JavaScript", "NextJS", "Node.js", "Python", "Flask"];
+const TECH_STACK = ["JavaScript", "NextJS", "Python", "Flask","Docker"];
 const SOCIAL_LINKS = [
   { icon: FaGithub, link: "https://github.com/jaideepn-09" },
   { icon: FaLinkedin, link: "https://www.linkedin.com/in/jaideep-n-b647ab228" },

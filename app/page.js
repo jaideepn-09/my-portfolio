@@ -9,12 +9,24 @@ import Portfolio from "@/src/pages/Portfolio";
 import Contact from "@/src/pages/Contact";
 import StarsCanvas from "@/src/components/Stars";
 import Footer from "@/src/pages/Footer";
+import SpinnerScrollbar from '@/src/components/SpinnerScrollbar';
 
 export default function Home() {
   const [showWelcome, setShowWelcome] = useState(true);
 
   return (
-    <div className='bg-[#000000]'>
+    <div className='bg-[#000000] relative overflow-hidden'>
+      {/* Hide default scrollbar */}
+      <style jsx global>{`
+        ::-webkit-scrollbar {
+          display: none;
+        }
+        html {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
+
       <AnimatePresence mode="wait">
         {showWelcome && (
           <WelcomeScreen onLoadingComplete={() => setShowWelcome(false)} />
@@ -32,6 +44,9 @@ export default function Home() {
             <StarsCanvas />
             <Footer />
           </div>
+
+          {/* Custom Spinner Scrollbar - Only visible after welcome screen */}
+          <SpinnerScrollbar />
         </>
       )}
     </div>

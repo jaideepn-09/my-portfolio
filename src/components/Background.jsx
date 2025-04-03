@@ -45,24 +45,7 @@ const AnimatedBackground = ({ showRain }) => {
   }, []);
 
   return (
-    <div className="fixed inset-0">
-      {/* Rain Animation */}
-      {showRain && (
-        <div className="absolute inset-0 z-0">
-          {[...Array(50)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-0.5 h-8 bg-gradient-to-b from-white/20 to-transparent animate-rain"
-              style={{
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${1 + Math.random() * 2}s`,
-              }}
-            />
-          ))}
-        </div>
-      )}
-
+    <div className="fixed inset-0"> 
       {/* Blob Backgrounds */}
       <div className="absolute inset-0">
         <div

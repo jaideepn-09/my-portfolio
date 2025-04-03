@@ -2,13 +2,15 @@
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
-
+import { useRouter } from "next/navigation";
 import { styles } from "../styles";
 import EarthCanvas from "../components/EarthCanvas";
 import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
+import SendButton from "../components/SendButton";
 
 const Contact = () => {
+  const router = useRouter();
   const formRef = useRef();
   const [form, setForm] = useState({
     name: "",
@@ -17,20 +19,23 @@ const Contact = () => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [isSent, setIsSent] = useState(false);
 
   const handleChange = (e) => {
-    const { target } = e;
-    const { name, value } = target;
-
-    setForm({
-      ...form,
-      [name]: value,
-    });
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Check if form is valid
+    if (!form.name || !form.email || !form.message) {
+      return; // SendButton will be disabled anyway
+    }
+
     setLoading(true);
+    setIsSent(false);
 
     emailjs
       .send(
@@ -40,37 +45,32 @@ const Contact = () => {
           from_name: form.name,
           to_name: "Jaideep N",
           from_email: form.email,
-          to_email: "jaideepn3590@gmail.com",
+          to_email: "deepj2944@gmail.com",
           message: form.message,
         },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
       )
-      .then(
-        () => {
-          setLoading(false);
-          alert("Thank you. I will get back to you as soon as possible.");
-
-          setForm({
-            name: "",
-            email: "",
-            message: "",
-          });
-        },
-        (error) => {
-          setLoading(false);
-          console.error(error);
-          alert("Ahh, something went wrong. Please try again.");
-        }
-      );
+      .then(() => {
+        setLoading(false);
+        setIsSent(true);
+        setForm({ name: "", email: "", message: "" });
+        setTimeout(() => router.push("/ThankYou"), 1500);
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.error(error);
+        alert("Ahh, something went wrong. Please try again.");
+      });
   };
 
+  // Check if form is complete
+  const isFormValid = form.name && form.email && form.message;
+
   return (
-    <div
-      className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden pb-12`}
-    >
+    <div className="xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden pb-12">
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
-        className='flex-[0.75] bg-black-100  rounded-2xl xl:mr-10'
+        className="flex-[0.75] bg-black-100 rounded-2xl xl:mr-10"
       >
         <p className={styles.sectionSubText}>Get in touch</p>
         <h3 className={styles.sectionHeadText}>Contact.</h3>
@@ -80,7 +80,6 @@ const Contact = () => {
           onSubmit={handleSubmit}
           className="mt-12 flex flex-col gap-6 max-w-xl mx-auto relative z-10 p-6 rounded-2xl backdrop-blur-lg border border-white/10 shadow-lg shadow-blue-500/20"
         >
-          {/* Cosmic Glow Background */}
           <div className="absolute inset-0 bg-gradient-to-r from-purple-600/30 to-blue-500/30 blur-2xl opacity-60 -z-10"></div>
 
           {/* Name Input */}
@@ -96,6 +95,7 @@ const Contact = () => {
                 onChange={handleChange}
                 placeholder="Enter your name..."
                 className="bg-black/50 backdrop-blur-sm py-3 px-5 text-white placeholder:text-white/40 rounded-lg outline-none border border-white/20 focus:border-purple-400 transition-all duration-300 shadow-md shadow-purple-500/10 focus:ring-2 focus:ring-purple-500/40"
+                required
               />
             </label>
           </div>
@@ -104,7 +104,7 @@ const Contact = () => {
           <div className="relative group">
             <label className="flex flex-col relative">
               <span className="text-white/80 font-medium mb-2 flex items-center gap-2">
-                Address
+                Email Address
               </span>
               <input
                 type="email"
@@ -113,6 +113,7 @@ const Contact = () => {
                 onChange={handleChange}
                 placeholder="Where can the cosmos contact you?"
                 className="bg-black/50 backdrop-blur-sm py-3 px-5 text-white placeholder:text-white/40 rounded-lg outline-none border border-white/20 focus:border-blue-400 transition-all duration-300 shadow-md shadow-blue-500/10 focus:ring-2 focus:ring-blue-500/40"
+                required
               />
             </label>
           </div>
@@ -130,47 +131,20 @@ const Contact = () => {
                 onChange={handleChange}
                 placeholder="Transmit your thoughts to the stars..."
                 className="bg-black/50 backdrop-blur-sm py-3 px-5 text-white placeholder:text-white/40 rounded-lg outline-none border border-white/20 focus:border-indigo-400 transition-all duration-300 shadow-md shadow-indigo-500/10 focus:ring-2 focus:ring-indigo-500/40"
+                required
               />
             </label>
           </div>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="relative overflow-hidden mt-6 bg-gradient-to-r from-purple-600 to-blue-500 py-3 px-8 rounded-lg outline-none text-white font-bold shadow-md shadow-purple-500/30 hover:shadow-blue-500/40 transition-all duration-300 group"
-          >
-            <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            <span className="relative z-10 flex items-center gap-2">
-              {loading ? (
-                <>
-                  <svg
-                    className="animate-spin h-5 w-5 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                  Sending...
-                </>
-              ) : (
-                <>Launch Message</>
-              )}
-            </span>
-          </button>
+          {/* Submit Button - Only SendButton remains */}
+          <div className="mt-6 flex justify-center">
+            <SendButton 
+              type="submit"
+              disabled={!isFormValid || loading || isSent}
+              isSent={isSent}
+              onClick={handleSubmit}
+            />
+          </div>
         </form>
       </motion.div>
 

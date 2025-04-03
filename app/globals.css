@@ -40,3 +40,13 @@ body {
 .floating {
   animation: floating 2s infinite ease-in-out;
 }
+
+/* Disable default cursor */
+html, body, a, button {
+  cursor: none !important;
+}
+
+/* Custom cursor styles */
+body:hover [data-cursor] {
+  opacity: 1;
+}
