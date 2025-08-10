@@ -9,19 +9,18 @@ const CustomCursor = () => {
   useEffect(() => {
     const cursor = cursorRef.current;
     const follower = followerRef.current;
-    
-    gsap.set([cursor, follower], { xPercent: -50, yPercent: -50 });
+    gsap.set([cursor, follower].filter(Boolean), { xPercent: -50, yPercent: -50 });
 
     let posX = 0, posY = 0;
     let mouseX = 0, mouseY = 0;
+    let isActive = true;
 
     const animateCursor = () => {
-      posX += (mouseX - posX) / 7; // Smooth follow effect
+      if (!isActive) return;
+      posX += (mouseX - posX) / 7;
       posY += (mouseY - posY) / 7;
-      
-      gsap.set(cursor, { x: mouseX, y: mouseY });
-      gsap.set(follower, { x: posX, y: posY });
-
+      if (cursor) gsap.set(cursor, { x: mouseX, y: mouseY });
+      if (follower) gsap.set(follower, { x: posX, y: posY });
       requestAnimationFrame(animateCursor);
     };
 
@@ -30,30 +29,27 @@ const CustomCursor = () => {
       mouseY = e.clientY;
     };
 
-    // Hover effect on interactive elements
     const handleHover = () => {
-      gsap.to(cursor, { scale: 0.8, duration: 0.3 });
-      gsap.to(follower, { scale: 1.5, duration: 0.3 });
+      if (cursor) { gsap.to(cursor, { scale: 0.8, duration: 0.3 }); }
+      if (follower) { gsap.to(follower, { scale: 1.5, duration: 0.3 }); }
     };
 
     const handleUnhover = () => {
-      gsap.to(cursor, { scale: 1, duration: 0.3 });
-      gsap.to(follower, { scale: 1, duration: 0.3 });
+      if (cursor) { gsap.to(cursor, { scale: 1, duration: 0.3 }); }
+      if (follower) { gsap.to(follower, { scale: 1, duration: 0.3 }); }
     };
 
-    // Add event listeners
     window.addEventListener('mousemove', handleMouseMove);
-    
     const interactiveElements = document.querySelectorAll('a, button, input, textarea, [data-cursor-hover]');
     interactiveElements.forEach(el => {
       el.addEventListener('mouseenter', handleHover);
       el.addEventListener('mouseleave', handleUnhover);
     });
 
-    // Start cursor animation
     animateCursor();
 
     return () => {
+      isActive = false;
       window.removeEventListener('mousemove', handleMouseMove);
       interactiveElements.forEach(el => {
         el.removeEventListener('mouseenter', handleHover);

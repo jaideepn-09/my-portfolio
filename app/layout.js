@@ -1,15 +1,10 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from 'next/font/local';
 import "./globals.css";
 import CustomCursor from "@/src/components/CustomerCursor";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const myFont = localFont({
+  src: '../public/fonts/next.woff2',
+  variable: '--font-my-custom',
 });
 
 export const metadata = {
@@ -21,12 +16,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Custom Web Icon */}
         <link rel="icon" type="image/png" href="/photo.png" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/photo.png" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${myFont.variable} antialiased`}>
         <CustomCursor />
         {children}
       </body>
