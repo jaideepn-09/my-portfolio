@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/photo.png" />
       </head>
       <body className={`${myFont.variable} antialiased`}>
-        <CustomCursor />
+      
         {children}
       </body>
     </html>

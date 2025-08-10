@@ -1,10 +1,19 @@
 'use client'
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 
 const CustomCursor = () => {
   const cursorRef = useRef(null);
   const followerRef = useRef(null);
+
+  // Fix: Use useEffect to check isMobile on client only, and use state for SSR consistency
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.matchMedia('(max-width: 767px)').matches);
+  }, []);
+
+  if (isMobile) return null;
 
   useEffect(() => {
     const cursor = cursorRef.current;
