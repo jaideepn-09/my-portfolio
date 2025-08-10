@@ -112,6 +112,7 @@ const Certificate = ({ ImgSertif }) => {
           >
             {/* Close Button */}
             <IconButton
+              className="cursor-target"
               onClick={() => setOpen(false)}
               sx={{
                 position: "absolute",

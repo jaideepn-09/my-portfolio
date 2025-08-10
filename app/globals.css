@@ -34,4 +34,15 @@ body {
   animation: floating 2s infinite ease-in-out;
 }
 
+html, body, a, button {
+  cursor: none !important;
+}
+
+@media (max-width: 767px) {
+  html, body, a, button, * {
+    cursor: none !important;
+  }
+}
+
+
 

@@ -55,7 +55,7 @@ const CardProject = ({ Img, Title, Description, ProjectLink, id }) => {
               {id ? (
                 <Link
                   href={`/project/${id}`}
-                  className="inline-flex items-center space-x-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/90 transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                  className="inline-flex items-center space-x-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/90 transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500/50 cursor-target"
                   onClick={handleDetails}
                 >
                   <span className="text-sm font-medium">Details</span>

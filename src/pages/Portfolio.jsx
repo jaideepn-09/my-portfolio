@@ -263,16 +263,19 @@ export default function FullWidthTabs() {
             }}
           >
             <Tab
+              className="cursor-target"
               icon={<Code className="mb-2 w-5 h-5 transition-all duration-300" />}
               label="Projects"
               {...a11yProps(0)}
             />
             <Tab
+              className="cursor-target"
               icon={<Award className="mb-2 w-5 h-5 transition-all duration-300" />}
               label="Certificates"
               {...a11yProps(1)}
             />
             <Tab
+              className="cursor-target"
               icon={<Boxes className="mb-2 w-5 h-5 transition-all duration-300" />}
               label="Tech Stack"
               {...a11yProps(2)}
@@ -301,7 +304,7 @@ export default function FullWidthTabs() {
             </div>
           </div>
           {projects.length > initialItems && (
-            <div className="mt-6 w-full flex justify-start">
+            <div className="mt-6 w-30 flex justify-start cursor-target">
               <ToggleButton
                 onClick={() => toggleShowMore('projects')}
                 isShowingMore={showAllProjects}
@@ -318,6 +321,7 @@ export default function FullWidthTabs() {
                   key={index}
                   data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
                   data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
+                  className="cursor-target"
                 >
                   <Certificate ImgSertif={certificate.Img} />
                 </div>
@@ -325,7 +329,7 @@ export default function FullWidthTabs() {
             </div>
           </div>
           {certificates.length > initialItems && (
-            <div className="mt-6 w-full flex justify-start">
+            <div className="mt-6 w-30 flex justify-start cursor-target">
               <ToggleButton
                 onClick={() => toggleShowMore('certificates')}
                 isShowingMore={showAllCertificates}

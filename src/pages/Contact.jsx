@@ -94,7 +94,7 @@ const Contact = () => {
                 value={form.name}
                 onChange={handleChange}
                 placeholder="Enter your name..."
-                className="bg-black/50 backdrop-blur-sm py-3 px-5 text-white placeholder:text-white/40 rounded-lg outline-none border border-white/20 focus:border-purple-400 transition-all duration-300 shadow-md shadow-purple-500/10 focus:ring-2 focus:ring-purple-500/40"
+                className="bg-black/50 backdrop-blur-sm py-3 px-5 text-white placeholder:text-white/40 rounded-lg outline-none border border-white/20 focus:border-purple-400 transition-all duration-300 shadow-md shadow-purple-500/10 focus:ring-2 focus:ring-purple-500/40 cursor-target"
                 required
               />
             </label>
@@ -112,7 +112,7 @@ const Contact = () => {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="Where can the cosmos contact you?"
-                className="bg-black/50 backdrop-blur-sm py-3 px-5 text-white placeholder:text-white/40 rounded-lg outline-none border border-white/20 focus:border-blue-400 transition-all duration-300 shadow-md shadow-blue-500/10 focus:ring-2 focus:ring-blue-500/40"
+                className="bg-black/50 backdrop-blur-sm py-3 px-5 text-white placeholder:text-white/40 rounded-lg outline-none border border-white/20 focus:border-blue-400 transition-all duration-300 shadow-md shadow-blue-500/10 focus:ring-2 focus:ring-blue-500/40 cursor-target"
                 required
               />
             </label>
@@ -130,14 +130,14 @@ const Contact = () => {
                 value={form.message}
                 onChange={handleChange}
                 placeholder="Transmit your thoughts to the stars..."
-                className="bg-black/50 backdrop-blur-sm py-3 px-5 text-white placeholder:text-white/40 rounded-lg outline-none border border-white/20 focus:border-indigo-400 transition-all duration-300 shadow-md shadow-indigo-500/10 focus:ring-2 focus:ring-indigo-500/40"
+                className="bg-black/50 backdrop-blur-sm py-3 px-5 text-white placeholder:text-white/40 rounded-lg outline-none border border-white/20 focus:border-indigo-400 transition-all duration-300 shadow-md shadow-indigo-500/10 focus:ring-2 focus:ring-indigo-500/40 cursor-target"
                 required
               />
             </label>
           </div>
 
           {/* Submit Button - Only SendButton remains */}
-          <div className="mt-6 flex justify-center">
+          <div className="mt-6 flex justify-center cursor-target">
             <SendButton 
               type="submit"
               disabled={!isFormValid || loading || isSent}

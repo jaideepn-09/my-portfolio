@@ -62,7 +62,7 @@ const ThankYouPage = () => {
                       rounded-xl text-white font-semibold tracking-wide
                       transform transition-all duration-300
                       hover:scale-105 hover:shadow-glow
-                      focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+                      focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 cursor-target"
           >
             Return Home
             <svg

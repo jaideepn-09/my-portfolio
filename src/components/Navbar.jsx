@@ -63,7 +63,7 @@ const Navbar = () => {
       <div className="mx-auto px-4 sm:px-6 lg:px-[10%]">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 cursor-target">
             <a
               href="#hero"
               onClick={(e) => scrollToSection(e, "#hero")}
@@ -80,7 +80,7 @@ const Navbar = () => {
                 key={item.href}
                 href={item.href}
                 onClick={(e) => scrollToSection(e, item.href)}
-                className="group relative px-1 py-2 text-xl font-medium"
+                className="group relative px-1 py-2 text-xl font-medium cursor-target"
               >
                 <span className="relative z-10 transition-colors duration-300">
                   {item.label}

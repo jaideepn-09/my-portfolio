@@ -1,6 +1,7 @@
 import localFont from 'next/font/local';
 import "./globals.css";
-import CustomCursor from "@/src/components/CustomerCursor";
+import CustomCursor from '@/src/components/CustomerCursor';
+import CustomCursorWrapper from '@/src/components/CustomCursorWrapper';
 
 const myFont = localFont({
   src: '../public/fonts/next.woff2',
@@ -21,7 +22,7 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/photo.png" />
       </head>
       <body className={`${myFont.variable} antialiased`}>
-      
+        <CustomCursorWrapper/>
         {children}
       </body>
     </html>

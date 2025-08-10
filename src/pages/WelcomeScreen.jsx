@@ -198,7 +198,7 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
                 data-aos="fade-down"
               >
                 <TerminalLoader>
-                  <div className="terminal-loader">
+                  <div className="terminal-loader cursor-target">
                     <div className="terminal-header">
                       <div className="terminal-title">Status</div>
                       <div className="terminal-controls">
